@@ -1,0 +1,373 @@
+---
+title: "Algoritmos"
+author: "Rocio Gomez"
+date: "2026-04-01"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Primeros comandos de R
+
+R es un lenguaje muy parecido a matlab y trabaja especialmente con variables que en general pueden ser matrices.
+
+```{r}
+A=38
+A=40
+B=60
+C=B-A 
+C
+```
+
+##Uso de data sets o uso de bases de datos internos de R.
+
+Si escribo en console data() se abre una serie de datos ya cargados en R que estan dados en tablas de las cuales podemos elegir columnas específicas si escribimos \$ despues del comando de información específico.
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure}
+plot(pressure,type="l" , main="presión del gas ideal", ylab="hPa",xlab="K")
+```
+
+##Comando Plot Comando que permite graficar cualquier fuente de datos que le asignemos, teniendo tambien la posibiidad de asignar nombres a las variables o hacer cambios al gráfico. En caso de no saber para que sirve un comando podemos escribir ?plot en la consola y se abrirá una pestaña que nos explicará.
+
+##Funciones estadísticas
+
+```{r}
+z1<-rnorm(350,21,5)
+```
+
+```{r}
+w1<-length(z1)
+w1
+x1<-(500:849)
+x1
+plot(z1,x1) #comentario
+
+```
+
+```{r}
+hist(z1,main="Histograma de edades",breaks=50)
+```
+
+```{r}
+density(z1,type="d")
+```
+
+```{r}
+plot(density(z1),type="b")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#Ejercicio 1 de algoritmoss
+
+Consigna: Las últimas 3 cifras de mi DNI son 537 con estas crear una variable que tenga ese número 
+```{r}
+dni=537
+
+
+```
+
+Consigna: Crear un vector que tenga todos los números enteros desde el 1 hasta el 537. 
+```{r}
+
+secuenciadni<- (1:537)
+secuenciadni
+
+```
+
+#Ejercicio 2: Calcular la suma de todos los valores del vector secuenciadni 
+
+```{r}
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+  total<-total+i
+total}
+
+```
+
+#Ejercicio 3: Repetir el ejercicio anterior pero en phyton 
+
+```{python}
+
+suma=0
+for i in range (1,537):
+  suma +=i
+  
+  print(suma)
+
+```
+
+#Ejercicio 4: ¿Cuánto tarda en correr el código del ejercicio 2? 
+```{r}
+inicio<-Sys.time()
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+  total<-total+i
+total}
+
+final<-Sys.time()
+final-inicio
+```
+
+#Ejercicio 5: Repetir el ejercicio anterior utilizando la cabeza de Gauss 
+```{r}
+system.time({
+  n <- length(secuenciadni)
+  
+  #Aplicamos la fórmula de Gauss 
+  total_gauss <- (n*(n+1))/2
+  
+  print(total_gauss)
+})
+```
+
+PARTE DOS DE LOS EJERCICIOS 
+
+1.4 Generar un vector secuencia 
+
+```{r}
+# --- 1. Generar secuencia con bucle 'for' ---
+# Primero inicializamos el vector
+system.time({
+A <- 0
+for (i in 1:50000) {
+A[i] <- (i * 2)
+}
+})
+
+```
+```{r}
+#Verificamos los resultados 
+head(A)
+```
+```{r}
+tail(A)
+```
+
+```{r}
+system.time({
+B <- seq(from = 2, to = 100000, by = 2)
+})
+```
+```{r}
+# Verificamos los resultados
+head(B)
+```
+
+```{r}
+tail(B)
+```
+1.5 Implementación de una serie Fibonachi o Fibonacci
+
+```{r}
+# Definimos la cantidad de elementos de la serie que queremos calcular
+n <- 30
+# --- Método 1: Bucle 'for' con pre-asignación
+system.time({
+fib <- numeric(n)
+fib[1] <- 0
+fib[2] <- 1
+for (i in 3:n) {
+fib[i] <- fib[i-1] + fib[i-2]
+}
+})
+
+```
+
+```{r}
+# Ver los primeros resultados
+print("Primeros números de la serie:")
+```
+```{r}
+head(fib,10)
+```
+```{r}
+# --- Método 2: Función Recursiva
+fib_recursiva <- function(k) {
+if (k == 0) return(0)
+if (k == 1) return(1)
+return(fib_recursiva(k - 1) + fib_recursiva(k - 2))
+}
+print("Tiempo ejecución recursiva:")
+
+```
+```{r}
+system.time({
+# Calculamos el elemento n de forma individual
+resultado_rec <- fib_recursiva(n)
+})
+```
+
+1.6 Definición matemática recurrente 
+
+```{r}
+# --- Resolver consigna con bucle 'while' ---
+# Inicializamos la serie según la definición matemática
+fib <- c(0, 1)
+i <- 2 # Empezamos el conteo de iteraciones/posiciones
+system.time({
+# El bucle sigue mientras el último número generado sea <= 1.000.000
+while (fib[i] <= 1000000) {
+i <- i + 1
+# Definición recurrente: f(n+1) = f(n) + f(n-1)
+fib[i] <- fib[i-1] + fib[i-2]
+}
+})
+
+```
+```{r}
+# --- Resultados ---
+cat("El primer número mayor a 1.000.000 es:", fib[i], "\n")
+```
+```{r}
+cat("Se necesitaron", i - 1, "iteraciones (pasos) para superarlo.\n")
+```
+```{r}
+# Mostramos los últimos elementos para verificar
+tail(fib)
+
+```
+1.7 Ordenación de un vector por método burbuja 
+```{r}
+# --- 1. Creamos un vector desordenado ---
+# Usamos un vector de 1000 números aleatorios
+set.seed(123) # Para que el resultado sea siempre el mismo
+vector_desordenado <- sample(1:1000, 1000)
+# --- 2. Implementación del Método Burbuja ---
+bubble_sort <- function(x) {
+n <- length(x)
+# El bucle externo recorre todo el vector
+for (i in 1:(n - 1)) {
+# El bucle interno compara pares adyacentes
+for (j in 1:(n - i)) {
+if (x[j] > x[j + 1]) {
+# Intercambio de posición (el "burbujeo")
+temp <- x[j]
+x[j] <- x[j + 1]
+x[j + 1] <- temp
+}
+}
+}
+return(x)
+}
+# --- 3. Medimos Performance del Burbuja vs R Nativo ---
+cat("Tiempo con Método Burbuja:\n")
+```
+```{r}
+system.time({
+vector_ordenado_burbuja <- bubble_sort(vector_desordenado)
+})
+```
+```{r}
+cat("\nTiempo con función sort() nativa de R:\n")
+```
+```{r}
+system.time({
+vector_ordenado_R <- sort(vector_desordenado)
+})
+```
+1.8 La penitencia de Newton 
+```{r}
+# Definimos el límite de la suma (1*10ˆ7 para que no tarde demasiado en R)
+# Nota: 1*10ˆ10 es un número extremadamente grande para un bucle for en R
+n <- 1e7
+# --- MÉTODO 1: La "Penitencia" (Bucle For / Fuerza Bruta) ---
+# Este método suma uno por uno, como quería el profesor.
+system.time({
+suma_iterativa <- 0
+for (i in 1:n) {
+suma_iterativa <- suma_iterativa + i
+}
+})
+
+```
+```{r}
+cat("Resultado Suma Iterativa:", suma_iterativa, "\n")
+```
+
+```{r}
+# --- MÉTODO 2: La "Estrategia de Newton/Gauss" (Fórmula Analítica) ---
+# Usamos la suma de una progresión aritmética: (n * (n + 1)) / 2
+system.time({
+suma_analitica <- (n * (n + 1)) / 2
+})
+
+```
+
+```{r}
+cat("Resultado Suma Analítica:", suma_analitica, "\n")
+
+```
+Gráficos de violín 
+```{r}
+# 2.0 Comparación de Performance con Gráficos de Violín
+# Instalamos y cargamos la librería necesaria
+if(!require(microbenchmark)) install.packages("microbenchmark")
+```
+## Loading required package: microbenchmark
+```{r}
+if(!require(ggplot2)) install.packages("ggplot2")
+
+```
+```{r}
+library(microbenchmark)
+library(ggplot2)
+# --- 2.1 Comparación: Burbuja vs Sort Nativo ---
+set.seed(123)
+vector_prueba <- sample(1:500, 500)
+# Usamos microbenchmark para ejecutar los métodos varias veces y comparar
+comparativa_sort <- microbenchmark(
+Burbuja = bubble_sort(vector_prueba),
+Nativo_R = sort(vector_prueba),
+times = 10 # Lo corremos 10 veces para tener una muestra estadística
+)
+# Graficamos el comportamiento (Gráfico de Violín)
+autoplot(comparativa_sort) +
+labs(title = "Distribución de tiempos: Burbuja vs Sort Nativo",
+subtitle = "La escala suele ser logarítmica para apreciar la diferencia",
+y = "Tiempo de ejecución", x = "Algoritmo")
+```
+```{r}
+# --- 2.2 K-means: Introducción Teórica y Medición ---
+```
+
+Introducción Teórica a K-means:
+El algoritmo de K-means es un método de agrupamiento (clustering) que particiona un conjunto de n
+observaciones en k grupos. Funciona de forma iterativa asignando cada punto al “centroide” más cercano y
+recalculando dichos centros hasta que las posiciones se estabilizan. Es ampliamente utilizado en minería de
+datos para encontrar patrones no visibles a simple vista.
+```{r}
+# Medimos el rendimiento de kmeans con un dataset interno de R (iris)
+comparativa_kmeans <- microbenchmark(
+Kmeans_3_centros = kmeans(iris[, 1:4], centers = 3),
+Kmeans_5_centros = kmeans(iris[, 1:4], centers = 5),
+times = 50
+)
+# Graficamos los resultados de K-means
+autoplot(comparativa_kmeans) +
+labs(title = "Performance del método K-means",
+subtitle = "Comparación variando la cantidad de clusters (k)",
+y = "Tiempo de ejecución", x = "Configuración")
+```
+

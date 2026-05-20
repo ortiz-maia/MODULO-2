@@ -1,0 +1,281 @@
+install.packages("rmarkdown")
+A=38
+A=40
+B=60
+C=B-A
+C
+knitr::opts_chunk$set(echo = TRUE)
+A=38
+A=40
+B=60
+C=B-A
+C
+A=38
+A=40
+B=60
+C=B-A
+C
+data()
+AirPassengers
+cars
+cars$speed
+?plot
+plot(pressure)
+plot(pressure,main="presión del gas ideal")
+plot(pressure,main="presión del gas ideal", ylab="hPa",xlab="K")
+plot(pressure,main="presión del gas ideal", ylab="hPa",xlab="K")
+knitr::opts_chunk$set(echo = TRUE)
+A=38
+A=40
+B=60
+C=B-A
+C
+summary(cars)
+knitr::opts_chunk$set(echo = TRUE)
+A=38
+A=40
+B=60
+C=B-A
+C
+summary(cars)
+plot(z1)
+plot(z1)
+w1<-length(z1)
+w1<-length(z1)
+w1<-length(z1)
+w1<-length(z1)
+plot(pressure,type="l ,main="presión del gas ideal", ylab="hPa",xlab="K")
+plot(pressure,type="b , main="presión del gas ideal", ylab="hPa",xlab="K")
+plot(pressure,type="b" , main="presión del gas ideal", ylab="hPa",xlab="K")
+plot(pressure,type="l" , main="presión del gas ideal", ylab="hPa",xlab="K")
+install.packages("rticles")
+DNI=537
+for(i in 1:5) print(1:i)
+knitr::opts_chunk$set(echo = TRUE)
+secuenciadni<- (1:537)
+secuenciadni<- (1:537)
+secuenciadni
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+require(stats)
+sys.time
+require(stats)
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+Sys.time()
+inicio<-Sys.time()
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+final<-Sys.time()
+final-inicio
+install.packages("rPackedBar")
+knitr::opts_chunk$set(echo = TRUE)
+system.time({
+n <- length(secuenciadni)
+#Aplicamos la fórmula de Gauss
+total_gauss <- (n*(n+1))/2
+print(total_gauss)
+})
+install.packages("reticulate")
+# --- 1. Generar secuencia con bucle 'for' ---
+# Primero inicializamos el vector
+system.time({
+A <- 0
+for (i in 1:50000) {
+A[i] <- (i * 2)
+}
+})
+#Verificamos los resultados
+head(A)
+tail(A)
+system.time({
+B <- seq(from = 2, to = 100000, by = 2)
+}
+system.time({
+B <- seq(from = 2, to = 100000, by = 2)
+})
+# Verificamos los resultados
+head(B)
+tail(B)
+# Definimos la cantidad de elementos de la serie que queremos calcular
+n <- 30
+# --- Método 1: Bucle 'for' con pre-asignación
+system.time({
+fib <- numeric(n)
+fib[1] <- 0
+fib[2] <- 1
+for (i in 3:n) {
+fib[i] <- fib[i-1] + fib[i-2]
+}
+})
+# Ver los primeros resultados
+print("Primeros números de la serie:")
+head(fib,10)
+# --- Método 2: Función Recursiva
+fib_recursiva <- function(k) {
+if (k == 0) return(0)
+if (k == 1) return(1)
+return(fib_recursiva(k - 1) + fib_recursiva(k - 2))
+}
+print("Tiempo ejecución recursiva:")
+system.time({
+# Calculamos el elemento n de forma individual
+resultado_rec <- fib_recursiva(n)
+})
+# --- Resolver consigna con bucle 'while' ---
+# Inicializamos la serie según la definición matemática
+fib <- c(0, 1)
+i <- 2 # Empezamos el conteo de iteraciones/posiciones
+system.time({
+# El bucle sigue mientras el último número generado sea <= 1.000.000
+while (fib[i] <= 1000000) {
+i <- i + 1
+# Definición recurrente: f(n+1) = f(n) + f(n-1)
+fib[i] <- fib[i-1] + fib[i-2]
+}
+})
+# --- Resultados ---
+cat("El primer número mayor a 1.000.000 es:", fib[i], "\n")
+cat("Se necesitaron", i - 1, "iteraciones (pasos) para superarlo.\n")
+# Mostramos los últimos elementos para verificar
+tail(fib)
+# --- 1. Creamos un vector desordenado ---
+# Usamos un vector de 1000 números aleatorios
+set.seed(123) # Para que el resultado sea siempre el mismo
+vector_desordenado <- sample(1:1000, 1000)
+# --- 2. Implementación del Método Burbuja ---
+bubble_sort <- function(x) {
+n <- length(x)
+# El bucle externo recorre todo el vector
+for (i in 1:(n - 1)) {
+# El bucle interno compara pares adyacentes
+for (j in 1:(n - i)) {
+if (x[j] > x[j + 1]) {
+# Intercambio de posición (el "burbujeo")
+temp <- x[j]
+x[j] <- x[j + 1]
+x[j + 1] <- temp
+}
+}
+}
+return(x)
+}
+# --- 3. Medimos Performance del Burbuja vs R Nativo ---
+cat("Tiempo con Método Burbuja:\n")
+system.time({
+vector_ordenado_burbuja <- bubble_sort(vector_desordenado)
+})
+cat("\nTiempo con función sort() nativa de R:\n")
+system.time({
+vector_ordenado_R <- sort(vector_desordenado)
+})
+# Definimos el límite de la suma (1*10ˆ7 para que no tarde demasiado en R)
+# Nota: 1*10ˆ10 es un número extremadamente grande para un bucle for en R
+n <- 1e7
+# --- MÉTODO 1: La "Penitencia" (Bucle For / Fuerza Bruta) ---
+# Este método suma uno por uno, como quería el profesor.
+system.time({
+suma_iterativa <- 0
+for (i in 1:n) {
+suma_iterativa <- suma_iterativa + i
+}
+})
+cat("Resultado Suma Iterativa:", suma_iterativa, "\n")
+# --- MÉTODO 2: La "Estrategia de Newton/Gauss" (Fórmula Analítica) ---
+# Usamos la suma de una progresión aritmética: (n * (n + 1)) / 2
+system.time({
+suma_analitica <- (n * (n + 1)) / 2
+})
+A=38
+A=40
+B=60
+C=B-A
+C
+summary(cars)
+plot(pressure,type="l" , main="presión del gas ideal", ylab="hPa",xlab="K")
+z1<-rnorm(350,21,5)
+w1<-length(z1)
+w1
+x1<-(500:849)
+x1
+plot(z1,x1) #comentario
+hist(z1,main="Histograma de edades",breaks=50)
+density(z1,type="d")
+plot(density(z1),type="b")
+dni=537
+secuenciadni<- (1:537)
+secuenciadni
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+reticulate::repl_python()
+inicio<-Sys.time()
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+final<-Sys.time()
+final-inicio
+inicio<-Sys.time()
+total<-0
+valorfinal<-length(secuenciadni)
+for(i in 1:valorfinal){
+total<-total+i
+total}
+final<-Sys.time()
+final-inicio
+system.time({
+n <- length(secuenciadni)
+#Aplicamos la fórmula de Gauss
+total_gauss <- (n*(n+1))/2
+print(total_gauss)
+})
+cat("Resultado Suma Analítica:", suma_analitica, "\n")
+# 2.0 Comparación de Performance con Gráficos de Violín
+# Instalamos y cargamos la librería necesaria
+if(!require(microbenchmark)) install.packages("microbenchmark")
+if(!require(ggplot2)) install.packages("ggplot2")
+library(microbenchmark)
+library(ggplot2)
+# --- 2.1 Comparación: Burbuja vs Sort Nativo ---
+set.seed(123)
+vector_prueba <- sample(1:500, 500)
+# Usamos microbenchmark para ejecutar los métodos varias veces y comparar
+comparativa_sort <- microbenchmark(
+Burbuja = bubble_sort(vector_prueba),
+Nativo_R = sort(vector_prueba),
+times = 10 # Lo corremos 10 veces para tener una muestra estadística
+)
+# Graficamos el comportamiento (Gráfico de Violín)
+autoplot(comparativa_sort) +
+labs(title = "Distribución de tiempos: Burbuja vs Sort Nativo",
+subtitle = "La escala suele ser logarítmica para apreciar la diferencia",
+y = "Tiempo de ejecución", x = "Algoritmo")
+# --- 2.2 K-means: Introducción Teórica y Medición ---
+# Medimos el rendimiento de kmeans con un dataset interno de R (iris)
+comparativa_kmeans <- microbenchmark(
+Kmeans_3_centros = kmeans(iris[, 1:4], centers = 3),
+Kmeans_5_centros = kmeans(iris[, 1:4], centers = 5),
+times = 50
+)
+# Graficamos los resultados de K-means
+autoplot(comparativa_kmeans) +
+labs(title = "Performance del método K-means",
+subtitle = "Comparación variando la cantidad de clusters (k)",
+y = "Tiempo de ejecución", x = "Configuración")
+knitr::opts_chunk$set(echo = TRUE)
+secuenciadni<- (1:382)
+secuenciadni
+reticulate::repl_python()
