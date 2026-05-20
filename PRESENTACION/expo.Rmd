@@ -1,0 +1,94 @@
+---
+title: "Comparación de Algoritmos de Ordenamiento"
+author: "ZZZ"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+## Introducción
+
+Se comparan dos métodos de ordenamiento:
+
+- Método burbuja
+- Función sort() de R
+
+El objetivo es analizar su performance.
+
+---
+
+## Método Burbuja
+
+Es un algoritmo que compara elementos consecutivos e intercambia si están desordenados.
+
+Complejidad: O(n²)
+
+```{r}
+burbuja <- function(x){
+  n <- length(x)
+  for(j in 1:(n-1)){
+    for(i in 1:(n-j)){
+      if(x[i] > x[i+1]){
+        temp <- x[i]
+        x[i] <- x[i+1]
+        x[i+1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+```
+
+---
+
+## Método sort()
+
+Es una función optimizada de R.
+
+Complejidad: O(n log n)
+
+```{r}
+sort(c(5,3,1,4,2))
+```
+
+---
+
+## Generación de datos
+
+```{r}
+set.seed(123)
+x <- sample(1:100000, 20000)
+```
+
+---
+
+## Comparación con microbenchmark
+
+```{r}
+# instalamos solo la primera vez
+install.packages("microbenchmark")
+library(microbenchmark)
+benchmark <- microbenchmark(
+  Burbuja = burbuja(x),
+  sort_R = sort(x),
+  times = 3
+)
+benchmark
+```
+
+---
+
+## Visualización
+
+```{r}
+boxplot(benchmark)
+```
+
+---
+
+## Conclusión
+
+- El método burbuja es mucho más lento
+- sort() es mucho más eficiente
+- La diferencia aumenta con el tamaño de los datos
+

@@ -1,0 +1,126 @@
+---
+title: "Comparación de Algoritmos de Ordenamiento"
+author: "ZZZ"
+output:
+  ioslides_presentation: default
+  html_document:
+    df_print: paged
+---
+
+## Introducción
+
+Se comparan dos métodos de ordenamiento:
+
+- Método burbuja  
+- Función sort() de R  
+
+El objetivo es analizar su performance.
+
+---
+
+## Método Burbuja
+
+Es un algoritmo que compara elementos consecutivos e intercambia si están desordenados.
+
+Complejidad: O(n²)
+
+```{r}
+burbuja <- function(x){
+  n <- length(x)
+  for(j in 1:(n-1)){
+    for(i in 1:(n-j)){
+      if(x[i] > x[i+1]){
+        temp <- x[i]
+        x[i] <- x[i+1]
+        x[i+1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+```
+
+---
+
+## Método sort()
+
+Es una función optimizada de R.
+
+Complejidad: O(n log n)
+
+```{r}
+sort(c(5,3,1,4,2))
+```
+
+---
+
+## Generación de datos
+
+```{r}
+set.seed(123)
+x <- sample(1:100000, 20000)
+```
+
+---
+
+## Comparación con microbenchmark
+
+```{r}
+library(microbenchmark)
+
+benchmark <- microbenchmark(
+  Burbuja = burbuja(x),
+  sort_R = sort(x),
+  times = 3
+)
+
+benchmark
+```
+
+---
+
+## Visualización
+
+```{r echo=FALSE} 
+boxplot(benchmark,
+        main = "Comparación de tiempos",
+        col = c("red","blue"))
+```
+
+---
+
+## Conclusión
+
+- El método burbuja es mucho más lento  
+- sort() es mucho más eficiente  
+- La diferencia aumenta con el tamaño de los datos  
+
+```{r echo=FALSE}
+# Valores de n
+n <- 1:100
+
+# Calcular operaciones
+cuadratico <- n^2
+nlogn <- n * log(n)
+
+# Colores y gráfico
+plot(n, cuadratico,
+     type = "l",
+     col = "red",
+     lwd = 2,
+     ylim = c(0, max(cuadratico)),
+     xlab = "Tamaño de datos (n)",
+     ylab = "Operaciones estimadas",
+     main = "Comparativa de Complejidad: O(n²) vs O(n log n)")
+
+lines(n, nlogn,
+      col = "blue",
+      lwd = 2)
+
+legend("topleft",
+       legend = c("O(n²) - Burbuja", "O(n log n) - sort()"),
+       col = c("red", "blue"),
+       lwd = 2)
+
+grid()
+```
